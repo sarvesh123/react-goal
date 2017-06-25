@@ -6,14 +6,14 @@ import Signup from './Signup';
 class Menu extends Component {
 	render() {
 		return (
-			<div>
-				<ul>
-					<li><Link to="/login">Login</Link></li>
-					<li><Link to="/signup">Signup</Link></li>
+			<nav class="navbar navbar-light bg-faded">
+				<ul class="navbar-nav">
+					<li class="nav-item"><Link to="/login">Login</Link></li>
+					<li class="nav-item"><Link to="/signup">Signup</Link></li>
 				</ul>
 				<Route path="/login" component={Login} />
 				<Route path="/signup" component={Signup} />
-      		</div>
+      		</nav>
 		);
 	}
 }

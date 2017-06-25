@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Pagetitle from './Pagetitle';
 
 class Login extends Component {
 	constructor(props) {
@@ -29,17 +30,18 @@ class Login extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="col-6">
+				<Pagetitle title="Login" />
 				<form onSubmit={this.handleSubmit}>
-					<label>
-						Name:
-						<input type="text" name="email" onChange={this.handleChange} value={this.state.email} />
-					</label>
-					<label>
-						Password:
-						<input type="password" name="password" onChange={this.handleChange} value={this.state.password} />
-					</label>
-					<input type="submit" value="Submit"/>
+					<div className="form-group">
+						<label>Email:</label>
+						<input type="text" name="email" className="form-control" onChange={this.handleChange} value={this.state.email} />
+					</div>
+					<div className="form-group">
+						<label>Password:</label>
+						<input type="password" name="password" className="form-control" onChange={this.handleChange} value={this.state.password} />
+					</div>
+					<button type="submit" className="btn btn-primary">Login</button>
 				</form>
 			</div>
 		)

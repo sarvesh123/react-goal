@@ -9,14 +9,22 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
-          <div>
-            <span><Link to="/login">Login</Link></span>
-            <span><Link to="/signup">Signup</Link></span>
+        <div className="row">
+          <div className="col-12">
+            <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
+              <div className="collapse navbar-collapse">
+                <ul className="navbar-nav">
+                  <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
+                  <li className="nav-item"><Link className="nav-link" to="/signup">Signup</Link></li>
+                </ul>
+              </div>
+            </nav>
           </div>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
+          <div className="col-12">
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+          </div>
         </div>
       </Router>
     );
