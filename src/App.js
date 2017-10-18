@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
-import Home from './Home.js';
+import Home from './Home';
 import Login from './Login';
 import Signup from './Signup';
+import MyAccount from './MyAccount';
+import Chat from './Chat'
 
 class App extends Component {
   render() {
@@ -24,6 +26,8 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/users/:id" component={MyAccount} />
+            <Route path="/chat/:userId" component={Chat} />
           </div>
         </div>
       </Router>

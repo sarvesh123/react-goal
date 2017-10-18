@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import Pagetitle from './Pagetitle';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			email: '',
-			password: ''
+			password: '',
+			redirectToDashboard: false,
+			userId: '',
+			loginMessage: ''
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -24,11 +28,42 @@ class Login extends Component {
 	}
 
 	handleSubmit(event) {
-		alert('A name was submitted: ' + this.state.email);
 		event.preventDefault();
+		fetch('http://localhost:3000/api/users/login', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				email: this.state.email,
+				password: this.state.password
+			})
+		}).then((response) => response.json())
+		.then((responseJson) => {
+			if (responseJson.status === true) {
+				this.setState({ 
+					redirectToDashboard: true,
+					userId: responseJson.user.id
+				});
+			}
+			else {
+				this.setState({
+					loginMessage: responseJson.message
+				})
+			}
+		})
+		.catch((error) => {
+			console.log(error);
+		})
 	}
 
 	render() {
+		if (this.state.redirectToDashboard) {
+			return (
+				<Redirect to={'/users/' + this.state.userId}/>
+			)
+		}
 		return (
 			<div className="col-6">
 				<Pagetitle title="Login" />
@@ -43,6 +78,7 @@ class Login extends Component {
 					</div>
 					<button type="submit" className="btn btn-primary">Login</button>
 				</form>
+				<span>{this.state.loginMessage}</span>
 			</div>
 		)
 	}
