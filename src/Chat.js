@@ -17,8 +17,8 @@ class Chat extends Component {
 				'Content-Type': 'application/json'
 			},
             body: JSON.stringify({
-                    sender: '58481ff7d896c82404f34cba',
-                    receiver: this.props.match.params.userId,
+                    sender: this.props.match.params.sender,
+                    receiver: this.props.match.params.receiver,
                     message: this.state.chatMessage
                 })
         })

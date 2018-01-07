@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Pagetitle from './Pagetitle';
 import { Redirect } from 'react-router-dom';
+import { reactLocalStorage } from 'reactjs-localstorage'
 
 class Login extends Component {
 	constructor(props) {
@@ -42,6 +43,9 @@ class Login extends Component {
 		}).then((response) => response.json())
 		.then((responseJson) => {
 			if (responseJson.status === true) {
+				reactLocalStorage.set('isLoggedIn', 'loggedIn')
+				reactLocalStorage.set('userId', responseJson.user.id)
+				this.props.callback()
 				this.setState({ 
 					redirectToDashboard: true,
 					userId: responseJson.user.id
@@ -61,26 +65,28 @@ class Login extends Component {
 	render() {
 		if (this.state.redirectToDashboard) {
 			return (
-				<Redirect to={'/users/' + this.state.userId}/>
+				<Redirect to={'/users/' + this.state.userId} />
 			)
 		}
-		return (
-			<div className="col-6">
-				<Pagetitle title="Login" />
-				<form onSubmit={this.handleSubmit}>
-					<div className="form-group">
-						<label>Email:</label>
-						<input type="text" name="email" className="form-control" onChange={this.handleChange} value={this.state.email} />
-					</div>
-					<div className="form-group">
-						<label>Password:</label>
-						<input type="password" name="password" className="form-control" onChange={this.handleChange} value={this.state.password} />
-					</div>
-					<button type="submit" className="btn btn-primary">Login</button>
-				</form>
-				<span>{this.state.loginMessage}</span>
-			</div>
-		)
+		else {
+			return (
+				<div className="col-6">
+					<Pagetitle title="Login" />
+					<form onSubmit={this.handleSubmit}>
+						<div className="form-group">
+							<label>Email:</label>
+							<input type="text" name="email" className="form-control" onChange={this.handleChange} value={this.state.email} />
+						</div>
+						<div className="form-group">
+							<label>Password:</label>
+							<input type="password" name="password" className="form-control" onChange={this.handleChange} value={this.state.password} />
+						</div>
+						<button type="submit" className="btn btn-primary">Login</button>
+					</form>
+					<span>{this.state.loginMessage}</span>
+				</div>
+			)
+		}
 	}
 }
 
